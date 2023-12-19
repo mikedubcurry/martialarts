@@ -19,3 +19,8 @@ Route::get('/', function () {
         'data' => "hello"
     ]);
 });
+
+Route::resource('gyms', GymController::class);
+Route::resource('disciplines', DisciplineController::class);
+
+
