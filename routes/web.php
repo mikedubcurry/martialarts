@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\GymController;
+use App\Http\Controllers\DisciplineController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +17,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Thing/Index', [
-        'data' => "hello"
-    ]);
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::resource('gyms', GymController::class);
 Route::resource('disciplines', DisciplineController::class);

@@ -34,5 +34,10 @@ class GymSeeder extends Seeder
             'phone' => '518-949-0436',
             'slug' => 'sukhti-muay-thai-and-mma',
         ]);
+
+        $gym = \App\Models\Gym::where('name', 'Sukhti Muay Thai and MMA')->first();
+        $disciplines = \App\Models\Discipline::whereIn('id', [1, 3, 4, 5, 11])->get();
+        $gym->disciplines()->attach($disciplines);
+        $gym->save();
     }
 }

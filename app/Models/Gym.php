@@ -13,4 +13,9 @@ class Gym extends Model
     {
         return $this->belongsToMany(Discipline::class, 'gym_disciplines');
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

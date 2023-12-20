@@ -12,21 +12,21 @@ class GymController extends Controller
     {
         $gyms = Gym::all();
 
-        return Inertia::render('Gyms/Index', [
+        return Inertia::render('Gym/Index', [
             'gyms' => $gyms,
         ]);
     }
 
     public function show(Gym $gym)
     {
-        return Inertia::render('Gyms/Show', [
-            'gym' => $gym,
+        return Inertia::render('Gym/Show', [
+            'gym' => $gym->load('disciplines'),
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Gyms/Create');
+        return Inertia::render('Gym/Create');
     }
 
     public function store(Request $request)
@@ -48,7 +48,7 @@ class GymController extends Controller
 
     public function edit(Gym $gym)
     {
-        return Inertia::render('Gyms/Edit', [
+        return Inertia::render('Gym/Edit', [
             'gym' => $gym,
         ]);
     }
@@ -68,5 +68,12 @@ class GymController extends Controller
         $gym->update($request->all());
 
         return redirect()->route('gyms.index');
+    }
+
+    public function disciplines(Gym $gym)
+    {
+        return Inertia::render('Gym/Disciplines/Index', [
+            'gym' => $gym,
+        ]);
     }
 }
