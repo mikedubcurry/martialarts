@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -39,5 +40,38 @@ class GymSeeder extends Seeder
         $disciplines = \App\Models\Discipline::whereIn('id', [1, 3, 4, 5, 11])->get();
         $gym->disciplines()->attach($disciplines);
         $gym->save();
+
+        $user = User::where('id', 11)->first();
+
+        \App\Models\GymSession::create([
+            'user_id' => $user->id,
+            'gym_id' => $gym->id,
+            'discipline_id' => 1,
+            'date' => now()->subDays(3),
+            'start_time' => now()->subHours(2),
+            'end_time' => now()->subHours(1),
+        ]);
+        \App\Models\GymSession::create([
+            'user_id' => $user->id,
+            'gym_id' => $gym->id,
+            'discipline_id' => 11,
+            'date' => now()->subDays(2),
+            'start_time' => now()->subHours(2),
+            'end_time' => now()->subHours(1),
+        ]);
+        \App\Models\GymSession::create([
+            'user_id' => $user->id,
+            'gym_id' => $gym->id,
+            'discipline_id' => 3,
+            'date' => now()->subDays(1),
+            'start_time' => now()->subHours(2),
+            'end_time' => now()->subHours(1),
+        ]);
+        \App\Models\Recovery::create([
+            'user_id' => $user->id,
+            'date' => now()->subDays(3),
+            'type' => 'epsom salt bath',
+            'notes' => 'I felt great after this bath',
+        ]);
     }
 }
