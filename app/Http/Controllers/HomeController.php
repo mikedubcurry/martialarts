@@ -23,4 +23,9 @@ class HomeController extends Controller
             'disciplines' => $disciplines,
         ]);
     }
+
+    public function login(Request $request)
+    {
+        return Inertia::render('Login/Index');
+    }
 }

@@ -23,5 +23,6 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::resource('gyms', GymController::class);
 Route::resource('disciplines', DisciplineController::class);
 Route::get('/sessions/create', [SessionController::class, 'create'])->name('sessions.create');
+Route::get('/login', [HomeController::class, 'login'])->name('login');
 
 
