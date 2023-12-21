@@ -14,7 +14,7 @@ export default function Home({ gyms, disciplines, user }) {
             </header>
             <main className='w-10/12 mx-auto py-4'>
                 <div className=''>
-                    <Link href='/session/create' className='w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Record New Session</Link>
+                    <Link href='/sessions/create' className='w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Record New Session</Link>
                 </div>
 
                 <div className='mt-4'>
