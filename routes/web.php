@@ -6,6 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\DisciplineController;
 use App\Http\Controllers\SessionController;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Fortify\Fortify;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +21,7 @@ use App\Http\Controllers\SessionController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
 Route::resource('gyms', GymController::class);
 Route::resource('disciplines', DisciplineController::class);
 Route::get('/sessions/create', [SessionController::class, 'create'])->name('sessions.create');
 Route::get('/login', [HomeController::class, 'login'])->name('login');
-
-
