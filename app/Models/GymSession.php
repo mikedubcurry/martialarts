@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class GymSession extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'discipline_id',
+        'gym_id',
+        'date',
+        'start_time',
+        'end_time',
+    ];
 
     public function gym()
     {

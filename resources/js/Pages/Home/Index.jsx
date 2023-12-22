@@ -1,17 +1,10 @@
 import React from 'react'
 import { Link } from '@inertiajs/react'
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 
 export default function Home({ gyms, disciplines, user }) {
-    // create array of session/recovery days spanning the last 30 days
-    console.log(user)
     return (
-        <>
-            <header className='flex justify-between items-center px-8 py-4 border-b'>
-                <h1 className='font-bold text-3xl'>Martial Arts</h1>
-                <div className='flex items-center'>
-                    <div className='rounded-full h-10 w-10 bg-gray-400'></div>
-                </div>
-            </header>
+        <AuthenticatedLayout user={user}>
             <main className='w-10/12 mx-auto py-4'>
                 <div className=''>
                     <Link href='/sessions/create' className='w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Record New Session</Link>
@@ -66,6 +59,6 @@ export default function Home({ gyms, disciplines, user }) {
                     </div>
                 </div>
             </main>
-        </>
+        </AuthenticatedLayout>
     )
 }

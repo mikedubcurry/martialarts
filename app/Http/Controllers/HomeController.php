@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Discipline;
 use App\Models\Gym;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -12,8 +11,9 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        // lets pretend we have an authenticated user
-        $user = User::where('id', 11)->first();
+        if(!$request->user()) return redirect()->route('login');
+
+        $user = $request->user();
         $gyms = Gym::all();
         $disciplines = Discipline::all();
 
@@ -24,7 +24,7 @@ class HomeController extends Controller
         ]);
     }
 
-    public function login(Request $request)
+    public function login()
     {
         return Inertia::render('Login/Index');
     }
