@@ -8,7 +8,7 @@ export default function Create({disciplines, gyms}) {
 
     return (
         <Authenticated>
-            <h1 className='text-2xl font-bold'>Record New Session</h1>
+            <h1 className='text-center text-2xl font-bold'>Record New Session</h1>
             <CreateSessionForm disciplines={disciplines} gyms={gyms}/>
         </Authenticated>
     )

@@ -57,7 +57,7 @@ export default function Authenticated({ user, header, children }) {
                 </header>
             )}
 
-            <main>{children}</main>
+            <main className='w-10/12 mx-auto py-4'>{children}</main>
         </div>
     );
 }

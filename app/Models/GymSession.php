@@ -14,6 +14,7 @@ class GymSession extends Model
         'date',
         'start_time',
         'end_time',
+        'notes',
     ];
 
     public function gym()
@@ -29,5 +30,10 @@ class GymSession extends Model
     public function discipline()
     {
         return $this->belongsTo(Discipline::class);
+    }
+
+    public function notes()
+    {
+        return $this->hasOne(GymSessionNote::class);
     }
 }

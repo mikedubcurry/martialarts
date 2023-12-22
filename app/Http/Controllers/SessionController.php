@@ -37,6 +37,11 @@ class SessionController extends Controller
             'end_time' => $request->end_time,
         ]);
 
+        if ($request->notes) $session->notes()->create([
+            'note' => $request->notes,
+            'user_id' => $request->user()->id,
+        ]);
+
         return redirect()->route('home');
     }
 }
