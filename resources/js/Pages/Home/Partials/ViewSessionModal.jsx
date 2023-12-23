@@ -2,7 +2,6 @@ import { router } from "@inertiajs/react"
 import { useState } from "react"
 
 export default function ViewSessionModal({ session, close }) {
-    console.log(session)
     const [editing, setEditing] = useState(false)
     const [newNote, setNewNote] = useState(session.notes?.note || '')
     const handleDelete = () => {
