@@ -44,4 +44,29 @@ class SessionController extends Controller
 
         return redirect()->route('home');
     }
+
+    public function destroy(Request $request, $id)
+    {
+        $session = $request->user()->gymSessions()->findOrFail($id);
+        $session->delete();
+        return redirect()->route('home');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $session = $request->user()->gymSessions()->findOrFail($id);
+        $request->validate([
+            'notes' => 'nullable|string',
+        ]);
+        if ($request->notes) {
+            $notes = $session->notes()->count() ? $session->notes()->update([
+                'note' => $request->notes,
+                'user_id' => $request->user()->id,
+            ]) : $session->notes()->create([
+                'note' => $request->notes,
+                'user_id' => $request->user()->id,
+            ]);
+        }
+        return redirect()->route('home');
+    }
 }

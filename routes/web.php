@@ -29,6 +29,8 @@ Route::get('/', function () {
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/sessions/create', [SessionController::class, 'create'])->name('sessions.create');
 Route::post('/sessions', [SessionController::class, 'store'])->name('sessions.store');
+Route::delete('/sessions/{session}', [SessionController::class, 'destroy'])->name('sessions.destroy');
+Route::patch('/sessions/{session}', [SessionController::class, 'update'])->name('sessions.update');
 
 
 Route::get('/dashboard', function () {
@@ -41,4 +43,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
