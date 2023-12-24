@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSessionRequest;
+use App\Http\Requests\UpdateSessionRequest;
 use App\Models\Discipline;
 use App\Models\Gym;
 use Illuminate\Http\Request;
@@ -9,7 +11,7 @@ use Inertia\Inertia;
 
 class SessionController extends Controller
 {
-    public function create(Request $request)
+    public function create()
     {
         $disciplines = Discipline::all();
         $gyms = Gym::all();
@@ -19,16 +21,8 @@ class SessionController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreSessionRequest $request)
     {
-        $request->validate([
-            'discipline_id' => 'required|exists:disciplines,id',
-            'gym_id' => 'required|exists:gyms,id',
-            'date' => 'required|date',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i',
-        ]);
-
         $session = $request->user()->gymSessions()->create([
             'discipline_id' => $request->discipline_id,
             'gym_id' => $request->gym_id,
@@ -52,12 +46,9 @@ class SessionController extends Controller
         return redirect()->route('home');
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateSessionRequest $request, $id)
     {
         $session = $request->user()->gymSessions()->findOrFail($id);
-        $request->validate([
-            'notes' => 'nullable|string',
-        ]);
         if ($request->notes) {
             $notes = $session->notes()->count() ? $session->notes()->update([
                 'note' => $request->notes,

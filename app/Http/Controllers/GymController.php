@@ -5,16 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Gym;
 use Inertia\Inertia;
+use App\Http\Requests\GymStoreRequest;
 
 class GymController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $gyms = Gym::all();
+        $gyms = Gym::all()->load('disciplines');
+        $user = $request->user();
 
         return Inertia::render('Gym/Index', [
             'gyms' => $gyms,
+            'user' => $user,
         ]);
+    }
+
+    public function search(Request $request)
+    {
     }
 
     public function show(Gym $gym)
@@ -29,18 +36,8 @@ class GymController extends Controller
         return Inertia::render('Gym/Create');
     }
 
-    public function store(Request $request)
+    public function store(GymStoreRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'address' => 'required',
-            'city' => 'required',
-            'state' => 'required|size:2',
-            'zip' => 'required|size:5',
-            'phone' => 'required',
-            'slug' => 'required',
-        ]);
-
         Gym::create($request->all());
 
         return redirect()->route('gyms.index');

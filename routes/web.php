@@ -7,6 +7,7 @@ use Inertia\Inertia;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\GymController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,5 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/gyms', [GymController::class, 'index'])->name('gyms.index');
 
 require __DIR__ . '/auth.php';

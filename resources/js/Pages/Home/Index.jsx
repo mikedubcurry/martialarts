@@ -1,10 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from '@inertiajs/react'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import ViewSessionModal from './Partials/ViewSessionModal'
+import DisciplineModal from './Partials/DisciplineModal'
 
 export default function Home({ gyms, disciplines, user }) {
     const [selectedSession, setSelectedSession] = useState(null)
+    const [selectedDiscipline, setSelectedDiscipline] = useState(null)
+    useEffect(() => {
+        if (selectedSession) {
+            setSelectedDiscipline(null)
+        }
+    }, [selectedSession, selectedDiscipline])
     return (
         <AuthenticatedLayout user={user}>
             <div className=''>
@@ -52,7 +59,7 @@ export default function Home({ gyms, disciplines, user }) {
                             <li className='flex justify-between items-center border-b py-2 hover:bg-gray-50' key={discipline.id}>
                                 <div className='w-full flex justify-between items-center gap-4'>
                                     <p>{discipline.discipline}</p>
-                                    <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Find a Gym</button>
+                                    <button onClick={() => setSelectedDiscipline(discipline)} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Find a Gym</button>
                                 </div>
                             </li>
                         ))}
@@ -61,6 +68,10 @@ export default function Home({ gyms, disciplines, user }) {
             </div>
             {selectedSession && (
                 <ViewSessionModal session={selectedSession} close={() => setSelectedSession(null)}/>
+            )}
+
+            {selectedDiscipline && (
+                <DisciplineModal discipline={selectedDiscipline} close={() => setSelectedDiscipline(null)}/>
             )}
         </AuthenticatedLayout>
     )
