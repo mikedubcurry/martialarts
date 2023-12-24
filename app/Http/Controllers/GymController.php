@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Gym;
 use Inertia\Inertia;
 use App\Http\Requests\GymStoreRequest;
+use App\Http\Requests\SearchGymRequest;
 
 class GymController extends Controller
 {
@@ -20,8 +21,26 @@ class GymController extends Controller
         ]);
     }
 
-    public function search(Request $request)
+    public function search(SearchGymRequest $request)
     {
+dd('hi');
+        $gyms = Gym::where('name', 'like', '%' . $request->query('query') . '%')
+            ->orWhere('city', 'like', '%' . $request->query('query') . '%')
+            ->orWhere('state', 'like', '%' . $request->query('query') . '%')
+            ->orWhere('zip', 'like', '%' . $request->query('query') . '%')
+            ->orWhere('address', 'like', '%' . $request->query('query') . '%')
+            ->load('disciplines')
+            ->get()
+            ->filter(function ($gym) use ($request) {
+                if ($request->query('discipline')) {
+                    return $gym->disciplines->contains('id', $request->query('discipline'));
+                }
+                return true;
+            })->values();
+dd($gyms);
+        return Inertia::render('Gym/Index', [
+            'gyms' => $gyms,
+        ]);
     }
 
     public function show(Gym $gym)

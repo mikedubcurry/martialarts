@@ -19,14 +19,6 @@ use App\Http\Controllers\GymController;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/sessions/create', [SessionController::class, 'create'])->name('sessions.create');
 Route::post('/sessions', [SessionController::class, 'store'])->name('sessions.store');
@@ -45,5 +37,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/gyms', [GymController::class, 'index'])->name('gyms.index');
+Route::get('/gyms/search', [GymController::class, 'search'])->name('gyms.search');
 
 require __DIR__ . '/auth.php';
