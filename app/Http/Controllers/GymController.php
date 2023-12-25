@@ -21,23 +21,26 @@ class GymController extends Controller
         ]);
     }
 
-    public function search(SearchGymRequest $request)
+    public function search(Request $request)
     {
-dd('hi');
         $gyms = Gym::where('name', 'like', '%' . $request->query('query') . '%')
             ->orWhere('city', 'like', '%' . $request->query('query') . '%')
             ->orWhere('state', 'like', '%' . $request->query('query') . '%')
             ->orWhere('zip', 'like', '%' . $request->query('query') . '%')
             ->orWhere('address', 'like', '%' . $request->query('query') . '%')
-            ->load('disciplines')
             ->get()
+            ->load('disciplines')
             ->filter(function ($gym) use ($request) {
                 if ($request->query('discipline')) {
                     return $gym->disciplines->contains('id', $request->query('discipline'));
+                } else {
+                    return $gym->disciplines->filter(function ($discipline) use ($request) {
+                        return $discipline->discipline === $request->query('query');
+                    })->count() > 0;
                 }
                 return true;
             })->values();
-dd($gyms);
+        dd($gyms);
         return Inertia::render('Gym/Index', [
             'gyms' => $gyms,
         ]);
