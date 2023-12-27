@@ -7,7 +7,7 @@ export default function Create({disciplines, gyms}) {
     const user = usePage().props.auth.user;
 
     return (
-        <Authenticated>
+        <Authenticated user={user}>
             <h1 className='text-center text-2xl font-bold'>Record New Session</h1>
             <CreateSessionForm disciplines={disciplines} gyms={gyms}/>
         </Authenticated>
