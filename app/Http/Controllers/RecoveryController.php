@@ -17,7 +17,7 @@ class RecoveryController extends Controller
 
     public function store(StoreRecoveryRequest $request)
     {
-        $recovery = Recovery::create($request->validated());
+        $request->user()->recoveries()->create($request->validated());
 
         return redirect()->route('home');
     }
@@ -31,7 +31,7 @@ class RecoveryController extends Controller
 
     public function update(StoreRecoveryRequest $request, Recovery $recovery)
     {
-        $recovery->update($request->validated());
+        $recovery->update([...$request->validated(), 'user_id' => $request->user()->id]);
 
         return redirect()->route('home');
     }

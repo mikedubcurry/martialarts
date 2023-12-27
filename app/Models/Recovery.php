@@ -9,6 +9,12 @@ class Recovery extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'date',
+        'notes',
+        'type',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

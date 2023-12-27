@@ -1,7 +1,6 @@
-import { Link, useForm, usePage } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 
 export default function CreateSessionForm({ disciplines, gyms }) {
-    const user = usePage().props.auth.user;
     const { data, setData, post, processing, errors, reset } = useForm({
         date: '',
         discipline_id: '',
