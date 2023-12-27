@@ -8,6 +8,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\GymController;
+use App\Http\Controllers\RecoveryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +25,11 @@ Route::get('/sessions/create', [SessionController::class, 'create'])->name('sess
 Route::post('/sessions', [SessionController::class, 'store'])->name('sessions.store');
 Route::delete('/sessions/{session}', [SessionController::class, 'destroy'])->name('sessions.destroy');
 Route::patch('/sessions/{session}', [SessionController::class, 'update'])->name('sessions.update');
+
+Route::get('/recoveries/create', [RecoveryController::class, 'create'])->name('recoveries.create');
+Route::post('/recoveries', [RecoveryController::class, 'store'])->name('recoveries.store');
+Route::delete('/recoveries/{recovery}', [RecoveryController::class, 'destroy'])->name('recoveries.destroy');
+Route::patch('/recoveries/{recovery}', [RecoveryController::class, 'update'])->name('recoveries.update');
 
 
 Route::get('/dashboard', function () {

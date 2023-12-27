@@ -3,54 +3,32 @@ import { Link } from '@inertiajs/react'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import ViewSessionModal from './Partials/ViewSessionModal'
 import DisciplineModal from './Partials/DisciplineModal'
+import SectionList from './Partials/SectionList'
 
 export default function Home({ gyms, disciplines, user }) {
     const [selectedSession, setSelectedSession] = useState(null)
     const [selectedDiscipline, setSelectedDiscipline] = useState(null)
+
     useEffect(() => {
         if (selectedSession) {
             setSelectedDiscipline(null)
         }
     }, [selectedSession, selectedDiscipline])
+
     return (
         <AuthenticatedLayout user={user}>
             <div className=''>
                 <Link href='/sessions/create' className='w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Record New Session</Link>
             </div>
 
-            <div className='mt-4'>
-                <h2 className='text-2xl font-bold'>Past Sessions</h2>
-                <div className=''>
-                    <ul className=''>
-                        {user.gym_sessions.map((session) => (
-                            <li className='flex justify-between items-center border-b py-2 hover:bg-gray-50' key={session.id} onClick={() => setSelectedSession(session)}>
-                                <div className='flex items-center gap-4'>
-                                    <p>{session.date}</p>
-                                    <p>{session.discipline.discipline}</p>
-                                    <p>{session.start_time}</p>
-                                    <p>{session.end_time}</p>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+            <SectionList data={user.gym_sessions} title='Past Sessions' keys={['date', 'discipline.discipline', 'start_time', 'end_time']} setSelectedItem={setSelectedSession} />
+
+            <div className=''>
+                <Link href='/recoveries/create' className='w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Record New Recovery</Link>
             </div>
-            <div className='mt-4'>
-                <h2 className='text-2xl font-bold'>Recovery</h2>
-                <div className=''>
-                    <ul className=''>
-                        {user.recoveries.map((recovery) => (
-                            <li className='flex justify-between items-center border-b py-2 hover:bg-gray-50' key={recovery.id}>
-                                <div className='flex items-center gap-4'>
-                                    <p>{recovery.date}</p>
-                                    <p>{recovery.type}</p>
-                                    <p>{recovery.notes}</p>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </div>
+
+            <SectionList data={user.recoveries} title='Recovery' keys={['date', 'type', 'notes']} setSelectedItem={() => { }} />
+
             <div className='mt-4'>
                 <h2 className='text-2xl font-bold'>Explore Martial Arts</h2>
                 <div className=''>
@@ -67,11 +45,11 @@ export default function Home({ gyms, disciplines, user }) {
                 </div>
             </div>
             {selectedSession && (
-                <ViewSessionModal session={selectedSession} close={() => setSelectedSession(null)}/>
+                <ViewSessionModal session={selectedSession} close={() => setSelectedSession(null)} />
             )}
 
             {selectedDiscipline && (
-                <DisciplineModal discipline={selectedDiscipline} close={() => setSelectedDiscipline(null)}/>
+                <DisciplineModal discipline={selectedDiscipline} close={() => setSelectedDiscipline(null)} />
             )}
         </AuthenticatedLayout>
     )

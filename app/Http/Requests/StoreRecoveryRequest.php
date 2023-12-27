@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreSessionRequest extends FormRequest
+class StoreRecoveryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,9 @@ class StoreSessionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'discipline_id' => 'required|exists:disciplines,id',
-            'gym_id' => 'required|exists:gyms,id',
             'date' => 'required|date',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i',
+            'type' => 'required|string',
+            'notes' => 'nullable|string',
         ];
     }
 }
