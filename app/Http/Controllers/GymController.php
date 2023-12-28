@@ -32,7 +32,7 @@ class GymController extends Controller
             ->load('disciplines')
             ->filter(function ($gym) use ($request) {
                 if ($request->query('discipline')) {
-                    return $gym->disciplines->contains('id', $request->query('discipline'));
+                    return $gym->disciplines->contains('discipline', $request->query('discipline'));
                 } else {
                     return $gym->disciplines->filter(function ($discipline) use ($request) {
                         return $discipline->discipline === $request->query('query');
@@ -40,7 +40,7 @@ class GymController extends Controller
                 }
                 return true;
             })->values();
-        dd($gyms);
+
         return Inertia::render('Gym/Index', [
             'gyms' => $gyms,
         ]);

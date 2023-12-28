@@ -37,7 +37,7 @@ export default function Home({ gyms, disciplines, user }) {
                             <li className='flex justify-between items-center border-b py-2 hover:bg-gray-50' key={discipline.id}>
                                 <div className='w-full flex justify-between items-center gap-4'>
                                     <p>{discipline.discipline}</p>
-                                    <button onClick={() => setSelectedDiscipline(discipline)} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Find a Gym</button>
+                                    <Link href={"/gyms/search?discipline=" + discipline.discipline} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Find a Gym</Link>
                                 </div>
                             </li>
                         ))}
