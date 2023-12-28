@@ -44,5 +44,6 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/gyms', [GymController::class, 'index'])->name('gyms.index');
 Route::get('/gyms/search', [GymController::class, 'search'])->name('gyms.search');
+Route::get('/gyms/{gym:slug}', [GymController::class, 'show'])->name('gyms.show');
 
 require __DIR__ . '/auth.php';
