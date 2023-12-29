@@ -17,7 +17,7 @@ export default function Authenticated({ user, header, children }) {
                 <nav className='flex gap-4'>
                     <NavLink href={route('home')} active={route().current('home')}>Home</NavLink>
                     <NavLink href={route('gyms.index')} active={route().current('gyms.index')}>Gyms</NavLink>
-                    <NavLink href={route('goals.index')} active={route().current('goals.index')}>goals</NavLink>
+                    <NavLink href={route('goals.index')} active={route().current('goals.index')}>Goals</NavLink>
                 </nav>
 
                 <div>

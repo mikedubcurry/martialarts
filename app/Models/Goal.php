@@ -9,8 +9,18 @@ class Goal extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'goal',
+        'date',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function goalProgresses()
+    {
+        return $this->hasMany(GoalProgress::class);
     }
 }

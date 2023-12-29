@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Recovery::class);
     }
+
+    public function goals()
+    {
+        return $this->hasMany(Goal::class);
+    }
 }
