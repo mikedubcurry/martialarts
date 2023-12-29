@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GoalController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/gyms/create', [GymController::class, 'create'])->name('gyms.create');
     Route::post('/gyms', [GymController::class, 'store'])->name('gyms.store');
     Route::get('/gyms/{gym:slug}', [GymController::class, 'show'])->name('gyms.show');
+
+    Route::get('/goals', [GoalController::class, 'index'])->name('goals.index');
+
 });
 
 

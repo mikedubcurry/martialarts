@@ -14,6 +14,11 @@ export default function Authenticated({ user, header, children }) {
                 <Link href="/">
                     <h1 className='font-bold text-3xl'>Martial Arts</h1>
                 </Link>
+                <nav className='flex gap-4'>
+                    <NavLink href={route('home')} active={route().current('home')}>Home</NavLink>
+                    <NavLink href={route('gyms.index')} active={route().current('gyms.index')}>Gyms</NavLink>
+                    <NavLink href={route('goals.index')} active={route().current('goals.index')}>goals</NavLink>
+                </nav>
 
                 <div>
                     <Dropdown>
