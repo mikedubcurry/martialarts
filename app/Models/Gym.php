@@ -9,6 +9,16 @@ class Gym extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'address',
+        'city',
+        'state',
+        'zip',
+        'phone',
+        'slug',
+    ];
+
     public function disciplines()
     {
         return $this->belongsToMany(Discipline::class, 'gym_disciplines');

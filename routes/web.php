@@ -21,15 +21,6 @@ use App\Http\Controllers\RecoveryController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/sessions/create', [SessionController::class, 'create'])->name('sessions.create');
-Route::post('/sessions', [SessionController::class, 'store'])->name('sessions.store');
-Route::delete('/sessions/{session}', [SessionController::class, 'destroy'])->name('sessions.destroy');
-Route::patch('/sessions/{session}', [SessionController::class, 'update'])->name('sessions.update');
-
-Route::get('/recoveries/create', [RecoveryController::class, 'create'])->name('recoveries.create');
-Route::post('/recoveries', [RecoveryController::class, 'store'])->name('recoveries.store');
-Route::delete('/recoveries/{recovery}', [RecoveryController::class, 'destroy'])->name('recoveries.destroy');
-Route::patch('/recoveries/{recovery}', [RecoveryController::class, 'update'])->name('recoveries.update');
 
 
 Route::get('/dashboard', function () {
@@ -37,13 +28,26 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/sessions/create', [SessionController::class, 'create'])->name('sessions.create');
+    Route::post('/sessions', [SessionController::class, 'store'])->name('sessions.store');
+    Route::delete('/sessions/{session}', [SessionController::class, 'destroy'])->name('sessions.destroy');
+    Route::patch('/sessions/{session}', [SessionController::class, 'update'])->name('sessions.update');
+
+    Route::get('/recoveries/create', [RecoveryController::class, 'create'])->name('recoveries.create');
+    Route::post('/recoveries', [RecoveryController::class, 'store'])->name('recoveries.store');
+    Route::delete('/recoveries/{recovery}', [RecoveryController::class, 'destroy'])->name('recoveries.destroy');
+    Route::patch('/recoveries/{recovery}', [RecoveryController::class, 'update'])->name('recoveries.update');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/gyms', [GymController::class, 'index'])->name('gyms.index');
+    Route::get('/gyms/search', [GymController::class, 'search'])->name('gyms.search');
+    Route::get('/gyms/create', [GymController::class, 'create'])->name('gyms.create');
+    Route::post('/gyms', [GymController::class, 'store'])->name('gyms.store');
+    Route::get('/gyms/{gym:slug}', [GymController::class, 'show'])->name('gyms.show');
 });
 
-Route::get('/gyms', [GymController::class, 'index'])->name('gyms.index');
-Route::get('/gyms/search', [GymController::class, 'search'])->name('gyms.search');
-Route::get('/gyms/{gym:slug}', [GymController::class, 'show'])->name('gyms.show');
 
 require __DIR__ . '/auth.php';

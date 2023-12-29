@@ -7,6 +7,7 @@ use App\Models\Gym;
 use Inertia\Inertia;
 use App\Http\Requests\GymStoreRequest;
 use App\Http\Requests\SearchGymRequest;
+use App\Models\Discipline;
 
 class GymController extends Controller
 {
@@ -55,12 +56,15 @@ class GymController extends Controller
 
     public function create()
     {
-        return Inertia::render('Gym/Create');
+        $disciplines = Discipline::all();
+        return Inertia::render('Gym/Create', ['disciplines' => $disciplines]);
     }
 
     public function store(GymStoreRequest $request)
     {
-        Gym::create($request->all());
+        $gym = Gym::create($request->all());
+        $disciplines = $request->input('disciplines');
+        $gym->disciplines()->attach($disciplines);
 
         return redirect()->route('gyms.index');
     }
