@@ -15,6 +15,7 @@ class GymSession extends Model
         'start_time',
         'end_time',
         'notes',
+        'details',
     ];
 
     public function gym()

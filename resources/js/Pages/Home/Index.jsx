@@ -21,6 +21,7 @@ export default function Home({ gyms, disciplines, user }) {
                 <Link href='/sessions/create' className='w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Record New Session</Link>
             </div>
 
+            <div>filer by: <div>discipline</div></div>
             <SectionList data={user.gym_sessions} title='Past Sessions' keys={['date', 'discipline.discipline', 'start_time', 'end_time']} setSelectedItem={setSelectedSession} />
 
             <div className=''>
