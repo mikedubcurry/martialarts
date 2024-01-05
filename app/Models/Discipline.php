@@ -13,4 +13,9 @@ class Discipline extends Model
     {
         return $this->belongsToMany(Gym::class, 'gym_disciplines');
     }
+
+    public function prompts()
+    {
+        return $this->hasMany(SessionPrompt::class);
+    }
 }

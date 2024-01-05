@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             DisciplineSeeder::class,
             GymSeeder::class,
+            SessionPromptSeeder::class,
         ]);
 
         //        \App\Models\User::factory()->create([

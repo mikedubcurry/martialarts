@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('gym_sessions', function (Blueprint $table) {
-            $table->json('details')->nullable();
+        Schema::create('prompts', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->string('prompt');
+            $table->foreignId('discipline_id')->constrained()->cascadeOnDelete();
         });
     }
 
@@ -21,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('details');
     }
 };

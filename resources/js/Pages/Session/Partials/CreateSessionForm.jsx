@@ -1,6 +1,8 @@
 import { useForm } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
 
 export default function CreateSessionForm({ disciplines, gyms }) {
+    const [prompts, setPrompts] = useState([]);
     const { data, setData, post, processing, errors, reset } = useForm({
         date: '',
         discipline_id: '',
@@ -8,7 +10,15 @@ export default function CreateSessionForm({ disciplines, gyms }) {
         start_time: '',
         end_time: '',
         notes: '',
+        prompts: [],
     });
+
+    useEffect(() => {
+        if (!data.discipline_id) return;
+        fetch(`http://localhost/api/prompts/${data.discipline_id}`, { headers: { "Content-Type": "application/json", Accept: "application/json" } })
+            .then(response => response.json())
+            .then(data => setPrompts(data.prompts));
+    }, [data.discipline_id])
 
     const submit = (e) => {
         e.preventDefault();
@@ -48,6 +58,14 @@ export default function CreateSessionForm({ disciplines, gyms }) {
                 <span className='font-bold text-lg'>End Time</span>
                 <input className='' type='time' name='end_time' value={data.end_time} onChange={e => setData('end_time', e.target.value)} />
             </label>
+
+        {prompts.map(({prompt, id}) => (
+            <label className='flex flex-col gap-2' key={id}>
+                <span className='font-bold text-lg'>{prompt}</span>
+                <input className='' type='text' name={`prompts[${id}]`} value={data.prompts[id]} onChange={e => setData(`prompts[${id}]`, e.target.value)} />
+            </label>
+        ))}
+
             <label className='flex flex-col gap-2'>
                 <span className='font-bold text-lg'>Notes</span>
                 <textarea className='' name='notes' value={data.notes} onChange={e => setData('notes', e.target.value)} />

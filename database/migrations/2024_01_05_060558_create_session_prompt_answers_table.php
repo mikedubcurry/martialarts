@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('session_prompt_answers', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('session_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('gym_session_id')->constrained()->cascadeOnDelete();
             $table->foreignId('prompt_id')->constrained()->cascadeOnDelete();
             $table->string('answer');
         });

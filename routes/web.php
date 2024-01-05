@@ -11,6 +11,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\RecoveryController;
+use App\Http\Controllers\SessionPromptController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,6 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/goals/{goal}', [GoalController::class, 'update'])->name('goals.update');
     Route::delete('/goals/{goal}', [GoalController::class, 'destroy'])->name('goals.destroy');
     Route::post('/goals/{goal}/progress', [GoalProgressController::class, 'store'])->name('goals.progress.store');
+
 
 });
 
