@@ -13,10 +13,10 @@ class SessionController extends Controller
 {
     public function create()
     {
-        $disciplines = Discipline::all();
-        $gyms = Gym::all();
+        //$disciplines = Discipline::all();
+        $gyms = Gym::all()->load('disciplines');
         return Inertia::render('Session/Create', [
-            'disciplines' => $disciplines,
+         //   'disciplines' => $disciplines,
             'gyms' => $gyms,
         ]);
     }

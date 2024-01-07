@@ -1,8 +1,9 @@
 import { useForm } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
-export default function CreateSessionForm({ disciplines, gyms }) {
+export default function CreateSessionForm({ gyms }) {
     const [prompts, setPrompts] = useState([]);
+    const [disciplines, setDisciplines] = useState([]);
     const { data, setData, post, processing, errors, reset } = useForm({
         date: '',
         discipline_id: '',
@@ -12,6 +13,11 @@ export default function CreateSessionForm({ disciplines, gyms }) {
         notes: '',
         prompts: [],
     });
+
+    const handleGymChange = (e) => {
+        setData('gym_id', e.target.value);
+        setDisciplines(gyms.find(gym => gym.id === parseInt(e.target.value)).disciplines);
+    };
 
     useEffect(() => {
         if (!data.discipline_id) return;
@@ -33,17 +39,16 @@ export default function CreateSessionForm({ disciplines, gyms }) {
                 <input className='' type='date' name='date' value={data.date} onChange={e => setData('date', e.target.value)} />
             </label>
             <label className='flex flex-col gap-2'>
-                <span className='font-bold text-lg'>Discipline</span>
-                <select className='' name='discipline_id' value={data.discipline_id} onChange={e => setData('discipline_id', e.target.value)}>
-                    <option value=''>Select a Discipline</option>
-                    {disciplines.map((discipline) => (
-                        <option key={discipline.id} value={discipline.id}>{discipline.discipline}</option>
-                    ))}
-                </select>
+                <span className='font-bold text-lg'>Start Time</span>
+                <input className='' type='time' name='start_time' value={data.start_time} onChange={e => setData('start_time', e.target.value)} />
+            </label>
+            <label className='flex flex-col gap-2'>
+                <span className='font-bold text-lg'>End Time</span>
+                <input className='' type='time' name='end_time' value={data.end_time} onChange={e => setData('end_time', e.target.value)} />
             </label>
             <label className='flex flex-col gap-2'>
                 <span className='font-bold text-lg'>Gym</span>
-                <select className='' name='gym_id' value={data.gym_id} onChange={e => setData('gym_id', e.target.value)}>
+                <select className='' name='gym_id' value={data.gym_id} onChange={handleGymChange}>
                     <option value=''>Select a Gym</option>
                     {gyms.map((gym) => (
                         <option key={gym.id} value={gym.id}>{gym.name}</option>
@@ -51,12 +56,13 @@ export default function CreateSessionForm({ disciplines, gyms }) {
                 </select>
             </label>
             <label className='flex flex-col gap-2'>
-                <span className='font-bold text-lg'>Start Time</span>
-                <input className='' type='time' name='start_time' value={data.start_time} onChange={e => setData('start_time', e.target.value)} />
-            </label>
-            <label className='flex flex-col gap-2'>
-                <span className='font-bold text-lg'>End Time</span>
-                <input className='' type='time' name='end_time' value={data.end_time} onChange={e => setData('end_time', e.target.value)} />
+                <span className='font-bold text-lg'>Discipline</span>
+                <select className='' name='discipline_id' value={data.discipline_id} onChange={e => setData('discipline_id', e.target.value)}>
+                    <option value=''>Select a Discipline</option>
+                    {disciplines.map((discipline) => (
+                        <option key={discipline.id} value={discipline.id}>{discipline.discipline}</option>
+                    ))}
+                </select>
             </label>
 
         {prompts.map(({prompt, id}) => (
