@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class SessionPromptAnswer extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'prompt_id',
+        'answer',
+        'gym_session_id',
+    ];
 }

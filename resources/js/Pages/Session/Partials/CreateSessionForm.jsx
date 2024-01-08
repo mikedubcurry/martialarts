@@ -19,6 +19,11 @@ export default function CreateSessionForm({ gyms }) {
         setDisciplines(gyms.find(gym => gym.id === parseInt(e.target.value)).disciplines);
     };
 
+    const handleDisciplineChange = (e) => {
+        setData('discipline_id', e.target.value);
+        setPrompts(disciplines.find(discipline => discipline.id === parseInt(e.target.value)).prompts);
+    };
+
     useEffect(() => {
         if (!data.discipline_id) return;
         fetch(`http://localhost/api/prompts/${data.discipline_id}`, { headers: { "Content-Type": "application/json", Accept: "application/json" } })
@@ -32,6 +37,19 @@ export default function CreateSessionForm({ gyms }) {
             onSuccess: () => console.log('success'),
         });
     };
+
+    const handlePromptChange = (e) => {
+        const promptId = parseInt(e.target.dataset.prompt);
+        let promptHasData = data.prompts.find(prompt => prompt.id === parseInt(promptId));
+
+        if (promptHasData) {
+            promptHasData.answer = e.target.value;
+            return setData('prompts', data.prompts);
+        } else {
+            return setData('prompts', [...data.prompts, { id: promptId, answer: e.target.value }]);
+        }
+    };
+
     return (
         <form onSubmit={submit} className=' max-w-lg border flex flex-col gap-6 mx-auto'>
             <label className='flex flex-col gap-2'>
@@ -57,7 +75,7 @@ export default function CreateSessionForm({ gyms }) {
             </label>
             <label className='flex flex-col gap-2'>
                 <span className='font-bold text-lg'>Discipline</span>
-                <select className='' name='discipline_id' value={data.discipline_id} onChange={e => setData('discipline_id', e.target.value)}>
+                <select className='' name='discipline_id' value={data.discipline_id} onChange={handleDisciplineChange}>
                     <option value=''>Select a Discipline</option>
                     {disciplines.map((discipline) => (
                         <option key={discipline.id} value={discipline.id}>{discipline.discipline}</option>
@@ -65,12 +83,12 @@ export default function CreateSessionForm({ gyms }) {
                 </select>
             </label>
 
-        {prompts.map(({prompt, id}) => (
-            <label className='flex flex-col gap-2' key={id}>
-                <span className='font-bold text-lg'>{prompt}</span>
-                <input className='' type='text' name={`prompts[${id}]`} value={data.prompts[id]} onChange={e => setData(`prompts[${id}]`, e.target.value)} />
-            </label>
-        ))}
+            {prompts.map(({ prompt, id }) => (
+                <label className='flex flex-col gap-2' key={id}>
+                    <span className='font-bold text-lg'>{prompt}</span>
+                    <input data-prompt={id} className='' type='text' onChange={handlePromptChange} />
+                </label>
+            ))}
 
             <label className='flex flex-col gap-2'>
                 <span className='font-bold text-lg'>Notes</span>
