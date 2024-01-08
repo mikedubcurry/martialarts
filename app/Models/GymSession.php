@@ -37,4 +37,9 @@ class GymSession extends Model
     {
         return $this->hasOne(GymSessionNote::class);
     }
+
+    public function promptAnswers()
+    {
+        return $this->hasMany(SessionPromptAnswer::class);
+    }
 }

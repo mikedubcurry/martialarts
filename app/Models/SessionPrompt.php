@@ -9,4 +9,5 @@ class SessionPrompt extends Model
 {
     use HasFactory;
     protected $table = 'prompts';
+
 }

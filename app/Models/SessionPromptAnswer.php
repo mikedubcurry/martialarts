@@ -13,4 +13,9 @@ class SessionPromptAnswer extends Model
         'answer',
         'gym_session_id',
     ];
+
+    public function prompt()
+    {
+        return $this->belongsTo(SessionPrompt::class);
+    }
 }

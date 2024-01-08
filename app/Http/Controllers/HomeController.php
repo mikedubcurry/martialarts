@@ -19,7 +19,7 @@ class HomeController extends Controller
 
         return Inertia::render('Home/Index', [
             'gyms' => $gyms,
-            'user' => $user->load(['gymSessions.discipline', 'gymSessions.notes', 'gymSessions.gym', 'recoveries']),
+            'user' => $user->load(['gymSessions.discipline', 'gymSessions.notes', 'gymSessions.gym', 'recoveries', 'gymSessions.promptAnswers.prompt']),
             'disciplines' => $disciplines,
         ]);
     }

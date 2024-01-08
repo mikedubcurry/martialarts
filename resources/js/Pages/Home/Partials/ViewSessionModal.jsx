@@ -2,6 +2,7 @@ import { router } from "@inertiajs/react"
 import { useState } from "react"
 
 export default function ViewSessionModal({ session, close }) {
+    console.log(session)
     const [editing, setEditing] = useState(false)
     const [newNote, setNewNote] = useState(session.notes?.note || '')
     const handleDelete = () => {
@@ -41,6 +42,14 @@ export default function ViewSessionModal({ session, close }) {
                 <div className='mt-4'>
                     <h3 className='text-xl font-bold'>Notes</h3>
                     {editing ? (<textarea value={newNote} onChange={e => setNewNote(e.target.value)} ></textarea>) : (<p>{session.notes?.note}</p>)}
+                </div>
+                <div className='mt-4'>
+                    {session.prompt_answers?.map(({ id, answer, prompt }) => (
+                        <div key={id}>
+                            <h3 className='text-xl font-bold'>{prompt.prompt}</h3>
+                            <p>{answer}</p>
+                        </div>
+                    ))}
                 </div>
                 <div className='mt-4'>
                     <button onClick={handleEdit} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>{editing ? 'Save' : 'Edit'}</button>
