@@ -23,6 +23,7 @@ class StoreGoalProgressRequest extends FormRequest
     {
         return [
             'notes' => 'string',
+            'session_id' => 'required|exists:gym_sessions,id',
         ];
     }
 }

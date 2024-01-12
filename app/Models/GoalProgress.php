@@ -12,6 +12,7 @@ class GoalProgress extends Model
         'goal_id',
         'note',
         'completed',
+        'session_id',
     ];
 
     public function goal()

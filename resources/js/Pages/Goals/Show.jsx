@@ -9,7 +9,6 @@ export default function Show({ goal }) {
             return (
                 <>
                     <p>No progress yet.</p>
-                    <Link href={route('goals.progress.store', goal.id)} className="btn btn-primary">Add Progress</Link>
                 </>
             )
         }
@@ -27,6 +26,7 @@ export default function Show({ goal }) {
         <Authenticated user={user}>
             <h2 className="text-2xl font-bold mb-4">Goal: {goal.goal}</h2>
             {renderProgress()}
+            <Link href={route('goals.progress.store', goal.id)} className="btn btn-primary">Add Progress</Link>
         </Authenticated>
     )
 }

@@ -59,6 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/goals/{goal}/edit', [GoalController::class, 'edit'])->name('goals.edit');
     Route::patch('/goals/{goal}', [GoalController::class, 'update'])->name('goals.update');
     Route::delete('/goals/{goal}', [GoalController::class, 'destroy'])->name('goals.destroy');
+    Route::get('/goals/{goal}/progress', [GoalProgressController::class, 'create'])->name('goals.progress.create');
     Route::post('/goals/{goal}/progress', [GoalProgressController::class, 'store'])->name('goals.progress.store');
 
 
