@@ -3,7 +3,7 @@ import { useForm, usePage } from "@inertiajs/react";
 
 export default function Create({ goal, sessions }) {
     const { user } = usePage().props
-    console.log(sessions)
+
     const { post, errors, reset, data, setData } = useForm({
         note: '',
         session_id: ''
@@ -16,7 +16,6 @@ export default function Create({ goal, sessions }) {
     }
 
     const handleSessionChange = (e) => {
-        console.log(e.target.value)
         setData('session_id', e.target.value)
     }
 
@@ -30,7 +29,7 @@ export default function Create({ goal, sessions }) {
                 <label htmlFor="session">
                     <span>Gym Session</span>
                     <select value={data.session_id} onChange={handleSessionChange} name="session" id="session">
-                        {sessions.map((session) => (
+                        {[{ id: '-1', date: '', discipline: { discipline: "Select a Session" } }].concat(sessions).map((session) => (
                             <option key={session.id} value={session.id}>{session.date} - {session.discipline.discipline}</option>
                         ))}
                     </select>

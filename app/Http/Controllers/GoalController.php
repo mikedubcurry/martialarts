@@ -16,7 +16,7 @@ class GoalController extends Controller
         $goals = $user->goals()->get();
 
         return Inertia::render('Goals/Index', [
-            'goals' => $goals,
+            'goals' => $goals->load('goalProgresses'),
             'user' => $user,
         ]);
     }

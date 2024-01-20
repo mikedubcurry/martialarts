@@ -6,7 +6,7 @@ export default function GymsIndex({ gyms, user }) {
         <AuthenticatedLayout user={user}>
             <h2 className='text-2xl font-bold'>Gyms</h2>
             <form action='/gyms/search' method='GET' className='flex gap-4 items-center mb-4'>
-                <input type='text' name='discipline' placeholder='Muay Thai, Sambo' className='border border-gray-300 rounded-lg p-2' />
+                <input type='text' name='query' placeholder='Muay Thai, Sambo' className='border border-gray-300 rounded-lg p-2' />
                 <button type='submit' className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Search</button>
             </form>
             <div className=''>

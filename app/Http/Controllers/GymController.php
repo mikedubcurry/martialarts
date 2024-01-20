@@ -8,6 +8,7 @@ use Inertia\Inertia;
 use App\Http\Requests\GymStoreRequest;
 use App\Http\Requests\SearchGymRequest;
 use App\Models\Discipline;
+use Illuminate\Support\Facades\DB;
 
 class GymController extends Controller
 {
@@ -24,11 +25,19 @@ class GymController extends Controller
 
     public function search(Request $request)
     {
-        $gyms = Gym::where('name', 'like', '%' . $request->query('query') . '%')
-            ->orWhere('city', 'like', '%' . $request->query('query') . '%')
-            ->orWhere('state', 'like', '%' . $request->query('query') . '%')
-            ->orWhere('zip', 'like', '%' . $request->query('query') . '%')
-            ->orWhere('address', 'like', '%' . $request->query('query') . '%')
+// TODO: Fix search
+// - normalize data to uppercase (or migration to normalize data)
+// - use LIKE to match text
+        $gyms = Gym::where(DB::raw('UPPER(name)'), 'LIKE', '%' . strtoupper($request->query('query')) . '%')
+            ->orWhere(DB::raw('UPPER(city)'), 'LIKE', '%' . strtoupper($request->query('query')) . '%')
+            ->orWhere(DB::raw('UPPER(state)'), 'LIKE', '%' . strtoupper($request->query('query')) . '%')
+            ->orWhere(DB::raw('UPPER(zip)'), 'LIKE', '%' . strtoupper($request->query('query')) . '%')
+            ->orWhere(DB::raw('UPPER(address)'), 'LIKE', '%' . strtoupper($request->query('query')) . '%')
+        //$gyms = Gym::whereRaw("UPPER('name') LIKE %" . strtoupper($request->query('query')) . "%")
+        //    ->orWhereRaw("UPPER('city') LIKE %" . strtoupper($request->query('query')) . "%")
+        //    ->orWhereRaw("UPPER('state') LIKE %" . strtoupper($request->query('query')) . "%")
+        //    ->orWhereRaw("UPPER('zip') LIKE %" . strtoupper($request->query('query')) . "%")
+        //    ->orWhereRaw("UPPER('address') LIKE %" . strtoupper($request->query('query')) . "%")
             ->get()
             ->load('disciplines')
             ->filter(function ($gym) use ($request) {
