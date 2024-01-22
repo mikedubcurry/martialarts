@@ -1,8 +1,7 @@
-import { router } from "@inertiajs/react"
+import { Link, router } from "@inertiajs/react"
 import { useState } from "react"
 
 export default function ViewSessionModal({ session, close }) {
-    console.log(session)
     const [editing, setEditing] = useState(false)
     const [newNote, setNewNote] = useState(session.notes?.note || '')
     const handleDelete = () => {
@@ -34,10 +33,10 @@ export default function ViewSessionModal({ session, close }) {
                     <button onClick={() => close()} className='text-2xl font-bold'>X</button>
                 </div>
                 <div className='mt-4'>
-                    <p className='text-xl font-bold'>{session.discipline.discipline}</p>
-                    <p className='text-xl font-bold'>{session.date}</p>
-                    <p className='text-xl font-bold'>{session.start_time} - {session.end_time}</p>
-                    <p className='text-xl font-bold'>{session.gym.name}</p>
+                    <p className='text-xl font-bold'>{session.discipline}</p>
+                    <p className='text-md'>{session.date}</p>
+                    <p className='text-md'>{session.start_time} - {session.end_time}</p>
+                    <p className='text-md'><Link href={route('gyms.show', session.gym.slug)}>{session.gym.name}</Link></p>
                 </div>
                 <div className='mt-4'>
                     <h3 className='text-xl font-bold'>Notes</h3>

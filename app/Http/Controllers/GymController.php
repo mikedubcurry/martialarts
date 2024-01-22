@@ -28,11 +28,11 @@ class GymController extends Controller
 // TODO: Fix search
 // - normalize data to uppercase (or migration to normalize data)
 // - use LIKE to match text
-        $gyms = Gym::where(DB::raw('UPPER(name)'), 'LIKE', '%' . strtoupper($request->query('query')) . '%')
-            ->orWhere(DB::raw('UPPER(city)'), 'LIKE', '%' . strtoupper($request->query('query')) . '%')
-            ->orWhere(DB::raw('UPPER(state)'), 'LIKE', '%' . strtoupper($request->query('query')) . '%')
-            ->orWhere(DB::raw('UPPER(zip)'), 'LIKE', '%' . strtoupper($request->query('query')) . '%')
-            ->orWhere(DB::raw('UPPER(address)'), 'LIKE', '%' . strtoupper($request->query('query')) . '%')
+        $gyms = Gym::where(DB::raw('UPPER(name)'), 'LIKE', '%' . strtoupper($request->query('discipline')) . '%')
+            ->orWhere(DB::raw('UPPER(city)'), 'LIKE', '%' . strtoupper($request->query('discipline')) . '%')
+            ->orWhere(DB::raw('UPPER(state)'), 'LIKE', '%' . strtoupper($request->query('discipline')) . '%')
+            ->orWhere(DB::raw('UPPER(zip)'), 'LIKE', '%' . strtoupper($request->query('discipline')) . '%')
+            ->orWhere(DB::raw('UPPER(address)'), 'LIKE', '%' . strtoupper($request->query('discipline')) . '%')
         //$gyms = Gym::whereRaw("UPPER('name') LIKE %" . strtoupper($request->query('query')) . "%")
         //    ->orWhereRaw("UPPER('city') LIKE %" . strtoupper($request->query('query')) . "%")
         //    ->orWhereRaw("UPPER('state') LIKE %" . strtoupper($request->query('query')) . "%")

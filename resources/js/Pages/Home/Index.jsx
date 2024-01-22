@@ -15,22 +15,34 @@ export default function Home({ gyms, disciplines, user }) {
         }
     }, [selectedSession, selectedDiscipline])
 
+    const gymSessions = user.gym_sessions.map((session) => {
+        return {
+            ...session,
+            discipline: session.discipline.discipline,
+        }
+    })
+
     return (
         <AuthenticatedLayout user={user}>
-            <div className=''>
-                <Link href='/sessions/create' className='w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Record New Session</Link>
+            <div className='flex gap-4 my-8'>
+                <span className=''>
+                    <Link href='/sessions/create' className='w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Record New Session</Link>
+                </span>
+                <span className=''>
+                    <Link href='/recoveries/create' className='w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Record New Recovery</Link>
+                </span>
             </div>
 
-            <div>filer by: <div>discipline</div></div>
-            <SectionList data={user.gym_sessions} title='Past Sessions' keys={['date', 'discipline.discipline', 'start_time', 'end_time']} setSelectedItem={setSelectedSession} />
-
-            <div className=''>
-                <Link href='/recoveries/create' className='w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Record New Recovery</Link>
+            <div>filter by: <div>discipline</div></div>
+            <div className='border border-blue-500 rounded-md px-8 pb-8 mb-8'>
+                <SectionList data={gymSessions} title='Training Sessions' keys={['date', 'discipline', 'start_time', 'end_time']} setSelectedItem={setSelectedSession} />
             </div>
 
-            <SectionList data={user.recoveries} title='Recovery' keys={['date', 'type', 'notes']} setSelectedItem={() => { }} />
+            <div className='border border-blue-500 rounded-md px-8 pb-8 mb-8'>
+                <SectionList data={user.recoveries} title='Recovery' keys={['date', 'type', 'notes']} setSelectedItem={() => { }} />
+            </div>
 
-            <div className='mt-4'>
+            <div className='border border-blue-500 rounded-md px-8 pb-8 mb-8'>
                 <h2 className='text-2xl font-bold'>Explore Martial Arts</h2>
                 <div className=''>
                     <ul className=''>

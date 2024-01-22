@@ -14,82 +14,82 @@ class DisciplineSeeder extends Seeder
     public function run(): void
     {
         DB::table('disciplines')->insert([
-            'discipline' => 'Muay Thai',
+            'discipline' => 'muay thai',
             'slug' => 'muay-thai',
         ]);
 
         DB::table('disciplines')->insert([
-            'discipline' => 'Boxing',
+            'discipline' => 'boxing',
             'slug' => 'boxing',
         ]);
 
         DB::table('disciplines')->insert([
-            'discipline' => 'Brazilian Jiu Jitsu',
+            'discipline' => 'brazilian jiu jitsu',
             'slug' => 'bjj',
         ]);
 
         DB::table('disciplines')->insert([
-            'discipline' => 'Wrestling',
+            'discipline' => 'wrestling',
             'slug' => 'wrestling',
         ]);
 
         DB::table('disciplines')->insert([
-            'discipline' => 'Mixed Martial Arts',
+            'discipline' => 'mixed martial arts',
             'slug' => 'mma',
         ]);
 
         DB::table('disciplines')->insert([
-            'discipline' => 'Kickboxing',
+            'discipline' => 'kickboxing',
             'slug' => 'kickboxing',
         ]);
 
         DB::table('disciplines')->insert([
-            'discipline' => 'Judo',
+            'discipline' => 'judo',
             'slug' => 'judo',
         ]);
 
         DB::table('disciplines')->insert([
-            'discipline' => 'Karate',
+            'discipline' => 'karate',
             'slug' => 'karate',
         ]);
 
         DB::table('disciplines')->insert([
-            'discipline' => 'Taekwondo',
+            'discipline' => 'taekwondo',
             'slug' => 'taekwondo',
         ]);
 
         DB::table('disciplines')->insert([
-            'discipline' => 'Kung Fu',
+            'discipline' => 'kung fu',
             'slug' => 'kung-fu',
         ]);
 
         DB::table('disciplines')->insert([
-            'discipline' => 'Capoeira',
+            'discipline' => 'capoeira',
             'slug' => 'capoeira',
         ]);
 
         DB::table('disciplines')->insert([
-            'discipline' => 'Krav Maga',
+            'discipline' => 'krav maga',
             'slug' => 'krav-maga',
         ]);
 
         DB::table('disciplines')->insert([
-            'discipline' => 'Sambo',
+            'discipline' => 'sambo',
             'slug' => 'sambo',
         ]);
 
         DB::table('disciplines')->insert([
-            'discipline' => 'Jeet Kune Do',
+            'discipline' => 'jeet kune do',
             'slug' => 'jeet-kune-do',
         ]);
 
         DB::table('disciplines')->insert([
-            'discipline' => 'Aikido',
+            'discipline' => 'aikido',
             'slug' => 'aikido',
         ]);
 
         DB::table('disciplines')->insert([
-            'discipline' => 'Hapkido',
+            'discipline' => 'hapkido',
             'slug' => 'hapkido',
         ]);
     }
