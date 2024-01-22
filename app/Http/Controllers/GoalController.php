@@ -8,6 +8,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
+// TODO: Consider adding SMART attributes to goals, and incorperating some sort of progress tracking
+
 class GoalController extends Controller
 {
     public function index(Request $request)
