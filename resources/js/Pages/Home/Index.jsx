@@ -4,11 +4,13 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import ViewSessionModal from './Partials/ViewSessionModal'
 import DisciplineModal from './Partials/DisciplineModal'
 import SectionList from './Partials/SectionList'
+import Select from 'react-select'
 
 export default function Home({ gyms, disciplines, user }) {
     const [selectedSession, setSelectedSession] = useState(null)
     const [selectedDiscipline, setSelectedDiscipline] = useState(null)
 
+    const [sessionFilter, setSessionFilter] = useState()
     useEffect(() => {
         if (selectedSession) {
             setSelectedDiscipline(null)
@@ -22,6 +24,18 @@ export default function Home({ gyms, disciplines, user }) {
         }
     })
 
+    const filteredSessions = gymSessions.filter((session) => {
+        console.log(sessionFilter, session)
+        if (sessionFilter) {
+            return session.discipline === sessionFilter
+        }
+        return true
+    })
+
+    useEffect(() => {
+
+    }, [sessionFilter])
+
     return (
         <AuthenticatedLayout user={user}>
             <div className='flex gap-4 my-8'>
@@ -33,9 +47,20 @@ export default function Home({ gyms, disciplines, user }) {
                 </span>
             </div>
 
-            <div>filter by: <div>discipline</div></div>
+            <div className='flex items-center gap-4 mb-4'>
+                <span className='font-bold'>Filter By:</span>
+                <Select
+                    placeholder='Discipline'
+                    className='w-1/4'
+                    options={disciplines.map((discipline) => ({ value: discipline.discipline, label: discipline.discipline }))}
+                    onChange={(e) => setSessionFilter(e ? e.value : null)}
+                    defaultValue={null}
+                    isClearable={true}
+                />
+            </div>
+
             <div className='border border-blue-500 rounded-md px-8 pb-8 mb-8'>
-                <SectionList data={gymSessions} title='Training Sessions' keys={['date', 'discipline', 'start_time', 'end_time']} setSelectedItem={setSelectedSession} />
+                <SectionList data={filteredSessions} title='Training Sessions' keys={['date', 'discipline', 'start_time', 'end_time']} setSelectedItem={setSelectedSession} />
             </div>
 
             <div className='border border-blue-500 rounded-md px-8 pb-8 mb-8'>
