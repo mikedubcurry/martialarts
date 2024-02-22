@@ -16,10 +16,10 @@ class GymSeeder extends Seeder
     {
         for ($i = 0; $i < 10; $i++) {
             DB::table('gyms')->insert([
-                'name' => fake()->name,
-                'address' => fake()->streetAddress,
-                'city' => fake()->city,
-                'state' => fake()->stateAbbr,
+                'name' => strtolower(fake()->name),
+                'address' => strtolower(fake()->streetAddress),
+                'city' => strtolower(fake()->city),
+                'state' => strtoupper(fake()->stateAbbr),
                 'zip' => fake()->postcode,
                 'phone' => fake()->numerify('###-###-####'),
                 'slug' => fake()->slug,
@@ -27,16 +27,16 @@ class GymSeeder extends Seeder
         }
 
         DB::table('gyms')->insert([
-            'name' => 'Sukhti Muay Thai and MMA',
-            'address' => '527 Central Ave',
-            'city' => 'Albany',
-            'state' => 'NY',
+            'name' => strtolower('Sukhti Muay Thai and MMA'),
+            'address' => strtolower('527 Central Ave'),
+            'city' => strtolower('Albany'),
+            'state' => strtolower('NY'),
             'zip' => '12206',
             'phone' => '518-949-0436',
             'slug' => 'sukhti-muay-thai-and-mma',
         ]);
 
-        $gym = \App\Models\Gym::where('name', 'Sukhti Muay Thai and MMA')->first();
+        $gym = \App\Models\Gym::where('name', 'sukhti muay thai and mma')->first();
         $disciplines = \App\Models\Discipline::whereIn('id', [1, 3, 4, 5, 11])->get();
         $gym->disciplines()->attach($disciplines);
         $gym->save();

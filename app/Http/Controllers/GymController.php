@@ -6,9 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Gym;
 use Inertia\Inertia;
 use App\Http\Requests\GymStoreRequest;
-use App\Http\Requests\SearchGymRequest;
 use App\Models\Discipline;
-use Illuminate\Support\Facades\DB;
 
 class GymController extends Controller
 {
@@ -25,31 +23,20 @@ class GymController extends Controller
 
     public function search(Request $request)
     {
-// TODO: Fix search
-// - normalize data to uppercase (or migration to normalize data)
-// - use LIKE to match text
-        $gyms = Gym::where(DB::raw('UPPER(name)'), 'LIKE', '%' . strtoupper($request->query('discipline')) . '%')
-            ->orWhere(DB::raw('UPPER(city)'), 'LIKE', '%' . strtoupper($request->query('discipline')) . '%')
-            ->orWhere(DB::raw('UPPER(state)'), 'LIKE', '%' . strtoupper($request->query('discipline')) . '%')
-            ->orWhere(DB::raw('UPPER(zip)'), 'LIKE', '%' . strtoupper($request->query('discipline')) . '%')
-            ->orWhere(DB::raw('UPPER(address)'), 'LIKE', '%' . strtoupper($request->query('discipline')) . '%')
-        //$gyms = Gym::whereRaw("UPPER('name') LIKE %" . strtoupper($request->query('query')) . "%")
-        //    ->orWhereRaw("UPPER('city') LIKE %" . strtoupper($request->query('query')) . "%")
-        //    ->orWhereRaw("UPPER('state') LIKE %" . strtoupper($request->query('query')) . "%")
-        //    ->orWhereRaw("UPPER('zip') LIKE %" . strtoupper($request->query('query')) . "%")
-        //    ->orWhereRaw("UPPER('address') LIKE %" . strtoupper($request->query('query')) . "%")
+        $gyms = Gym::where('name', 'LIKE', '%' . strtolower($request->query('search')) . '%')
+            ->orWhere('city', 'LIKE', '%' . strtolower($request->query('search')) . '%')
+            ->orWhere('state', 'LIKE', '%' . strtolower($request->query('search')) . '%')
+            ->orWhere('zip', 'LIKE', '%' . strtolower($request->query('search')) . '%')
+            ->orWhere('address', 'LIKE', '%' . strtolower($request->query('search')) . '%')
             ->get()
             ->load('disciplines')
             ->filter(function ($gym) use ($request) {
                 if ($request->query('discipline')) {
-                    return $gym->disciplines->contains('discipline', $request->query('discipline'));
-                } else {
-                    return $gym->disciplines->filter(function ($discipline) use ($request) {
-                        return $discipline->discipline === $request->query('query');
-                    })->count() > 0;
+                    return $gym->disciplines->contains('discipline', strtolower($request->query('discipline')));
                 }
                 return true;
-            })->values();
+            })
+            ->values();
 
         return Inertia::render('Gym/Index', [
             'gyms' => $gyms,
