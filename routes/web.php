@@ -62,7 +62,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/goals/{goal}/progress', [GoalProgressController::class, 'create'])->name('goals.progress.create');
     Route::post('/goals/{goal}/progress', [GoalProgressController::class, 'store'])->name('goals.progress.store');
 
-
 });
 
 
