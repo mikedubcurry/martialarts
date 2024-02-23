@@ -22,12 +22,12 @@ jobs:
       run: sudo apt-get update && sudo apt-get install php php-mbstring php-xml
 
     - name: Install Composer dependencies
-      run: composer install --no-interaction --prefer-dist --optimize-autoloader
+      run: composer update --no-interaction --prefer-dist --optimize-autoloader
 
     - name: Deploy to EC2
       run: |
-        rsync -avz --delete --exclude-from=".rsyncignore" -e "ssh -i ~/.ssh/id_rsa" ./ ubuntu@${{ secrets.EC2_PUBLIC_IP }}:/path/to/your/project
-        ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.EC2_PUBLIC_IP }} 'cd /path/to/your/project && composer install --no-interaction --prefer-dist --optimize-autoloader && php artisan migrate --force && php artisan config:cache && php artisan route:cache'
+        rsync -avz --delete --exclude-from=".rsyncignore" -e "ssh -i ~/.ssh/id_rsa" ./ ubuntu@${{ secrets.EC2_PUBLIC_IP }}:/var/www/html
+        ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.EC2_PUBLIC_IP }} 'cd /var/www/html && composer update --no-interaction --prefer-dist --optimize-autoloader && php artisan migrate --force && php artisan config:cache && php artisan route:cache'
 
     - name: Clear SSH key
       run: rm ~/.ssh/id_rsa
